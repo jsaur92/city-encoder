@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @author jsaur92
  */
 
-final String MESSAGE = "eihguore hgpwoeurhgp powerughpo pwoerughweporuh";
+final String MESSAGE = "sample message";
 final String THIS_FILEPATH = "ArtEncoder.pde";
 final int BIT_COUNT = 16;
 final int BITS_PER_ROW = 4;
