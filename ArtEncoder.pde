@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @author jsaur92
  */
 
-final String MESSAGE = "We are smarter together, stronger together";
+final String MESSAGE = "eihguore hgpwoeurhgp powerughpo pwoerughweporuh";
 final String THIS_FILEPATH = "ArtEncoder.pde";
 final int BIT_COUNT = 16;
 final int BITS_PER_ROW = 4;
@@ -24,6 +24,8 @@ void setup() {
   size(1440, 2170);
   
   setGradient(0, 0, width*3, height*3, night1, night2);
+  drawMoon();
+  drawStars();
   
   translate(width, 0); scale(-1, 1);
   drawBinaryGroup(MESSAGE + " " + reverse(MESSAGE), 5, 0, 15, 13, 63, 24, 4);
@@ -132,6 +134,29 @@ void setGradient(int x, int y, float w, float h, color c1, color c2 ) {
     color c = lerpColor(c1, c2, inter);
     stroke(c);
     line(x, i, x+w, i);
+  }
+}
+
+// Draw the moon.
+void drawMoon() {
+  fill(180, 180);
+  stroke(255, 180);
+  strokeWeight(8);
+  circle(1200, 300, 300);
+  
+  fill(90, 90);
+  stroke(180, 90);
+  circle(1150, 250, 100);
+  circle(1290, 330, 70);
+  circle(1175, 380, 80);
+}
+
+// Draw the stars.
+void drawStars() {
+  stroke(255, 90);
+  for (int i = 0; i < 80; i++) {
+    strokeWeight(random(4, 8));
+    point(random(0, width), random(0, height/2));
   }
 }
 
