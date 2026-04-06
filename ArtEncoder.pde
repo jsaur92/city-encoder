@@ -7,28 +7,29 @@ import java.util.Arrays;
  * @author jsaur92
  */
 
-final String MESSAGE = "sample message";
+final String MESSAGE = "We are smarter together, stronger together";
 final String THIS_FILEPATH = "ArtEncoder.pde";
+final String FONT_PATH = "UbuntuMono-Regular-36.vlw";
 final int BIT_COUNT = 16;
 final int BITS_PER_ROW = 4;
 final float STACK_SKEW_X = 1;  // base number of pixels the 3d effect for the stacks skews x by.
 final float STACK_SKEW_Y = 1;  // base number of pixels the 3d effect for the stacks skews y by.
 final color night1 = color(0);
-final color night2 = color(0, 0, 102);
+final color night2 = color(0, 0, 51);
 final String[] VARTYPES = {"int", "float", "char", "String", "String[]", "color"};
 final String[] VARTYPES2 = {"final", "void"};
 final String[] CONDITIONAL = {"if", "else", "while", "for"};
 
 // Draw the image.
 void setup() {
-  size(1440, 2170);
+  size(4320, 6510);
   
-  setGradient(0, 0, width*3, height*3, night1, night2);
-  drawMoon();
-  drawStars();
+  setGradient(0, 0, width, height, night1, night2);
+  drawMoon(3400, 900, 900);
+  drawStars(12, 24, 80);
   
   translate(width, 0); scale(-1, 1);
-  drawBinaryGroup(MESSAGE + " " + reverse(MESSAGE), 5, 0, 15, 13, 63, 24, 4);
+  drawBinaryGroup(MESSAGE + " " + reverse(MESSAGE), 15, 0, 45, 39, 63, 24, 12);
   
   scale(-1, 1); translate(-width, 0);
   fill(255);
@@ -37,16 +38,16 @@ void setup() {
   translate(width, 0); scale(-1,1); rotate(PI); translate(-width, -height);
   
   fill(6);
-  rect(0, 0, width, 95);
+  rect(0, 0, width, 285);
   
-  drawBinaryGroup(MESSAGE, 50, 60, 30, 30, 255, 24, 8);
+  drawBinaryGroup(MESSAGE, 150, 180, 90, 90, 255, 24, 24);
   
   fill(255, 0, 0);
   
   int carCount = (int) random(8, 12);
   for (int i = 0; i < carCount; i++) {
     fill(random(30, 240), random(30, 240), random(30, 240));
-    drawCar(width * (i+0.5)/(carCount) + random(-20, 20), random(20, 50), 30);
+    drawCar(width * (i+0.5)/(carCount) + random(-60, 60), random(60, 150), 90);
   }
   
   save("output.png");
@@ -138,24 +139,24 @@ void setGradient(int x, int y, float w, float h, color c1, color c2 ) {
 }
 
 // Draw the moon.
-void drawMoon() {
+void drawMoon(float x, float y, float size) {
   fill(180, 180);
   stroke(255, 180);
-  strokeWeight(8);
-  circle(1200, 300, 300);
+  strokeWeight(size/37.5);
+  circle(x, y, size);
   
   fill(90, 90);
   stroke(180, 90);
-  circle(1150, 250, 100);
-  circle(1290, 330, 70);
-  circle(1175, 380, 80);
+  circle(x - size/6, y - size/6, size/3);
+  circle(x + size/4, y + size/10, size/5);
+  circle(x - size/12, y + size/4, size/4);
 }
 
 // Draw the stars.
-void drawStars() {
+void drawStars(int minSize, int maxSize, int count) {
   stroke(255, 90);
-  for (int i = 0; i < 80; i++) {
-    strokeWeight(random(4, 8));
+  for (int i = 0; i < count; i++) {
+    strokeWeight(random(minSize, maxSize));
     point(random(0, width), random(0, height/2));
   }
 }
@@ -164,8 +165,8 @@ void drawStars() {
 void drawCode() {
   String[] lines = loadStrings(THIS_FILEPATH);
   textAlign(LEFT);
-  textSize(12);
-  textFont(loadFont("UbuntuMono-Regular-12.vlw"));
+  textSize(48);
+  textFont(loadFont(FONT_PATH));
   boolean globalComment = false;
   for (int i = 0; i < lines.length; i++) {    // each line
     String[] parsedText = lines[i].split(" ");
@@ -199,7 +200,7 @@ void drawCode() {
       else if (Arrays.asList(VARTYPES2).contains(word)) fill(73, 164, 142);
       else if (Arrays.asList(CONDITIONAL).contains(word)) fill(113, 154, 22);
       else fill(255);
-      text(parsedText[j], 30 + this_line_x, 30 + 14*i);
+      text(parsedText[j], 30 + this_line_x, 30 + 42*i);
       this_line_x += textWidth(parsedText[j]);
       if (word.contains("*/")) globalComment = false;
     }
